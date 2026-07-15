@@ -2,7 +2,9 @@
     "name": "samjuk/m2-module-verbose-db-status",
     "description": "Adds a verbose mode to the setup:db:status command, to assist with debugging DB schema differences",
     "type": "magento2-module",
-    "license": ["MIT"],
+    "license": [
+        "MIT"
+    ],
     "authors": [
         {
             "name": "Sam James",
@@ -22,5 +24,21 @@
         "psr-4": {
             "SamJUK\\VerboseDBStatus\\": ""
         }
-    }
+    },
+    "homepage": "https://github.com/SamJUK/m2-module-verbose-db-status",
+    "keywords": [
+        "magento2",
+        "magento 2",
+        "magento2-module",
+        "adobe-commerce",
+        "extension",
+        "cli",
+        "command-line",
+        "setup-db-status",
+        "database",
+        "schema",
+        "debugging",
+        "devtools",
+        "open-source"
+    ]
 }
