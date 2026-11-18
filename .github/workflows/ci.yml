@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - master
-  
+
 jobs:
   lint:
     name: Linter
@@ -18,17 +18,25 @@ jobs:
     uses: samjuk/github-actions/.github/workflows/magento2-test-static.yaml@master
     needs: lint
 
-  unit-tests-ghas:
-    name: Unit Tests (GHAS)
-    uses: samjuk/github-actions/.github/workflows/magento2-test-unit-module-ghas.yaml@master
-    needs: static
+  dependencies:
+    name: Dependencies
+    uses: samjuk/github-actions/.github/workflows/magento2-test-dependencies-module.yaml@master
+    needs: lint
+
+  supported-versions:
+    name: Supported Versions
+    uses: samjuk/github-actions/.github/workflows/magento-supported-versions.yaml@master
+
+  phpunit-tests-ghas:
+    name: PHPUnit Tests (GHAS)
+    uses: samjuk/github-actions/.github/workflows/magento2-test-phpunit-module-ghas.yaml@master
+    needs: [static, dependencies, supported-versions]
     with:
-      magento_version: ${{ matrix.magento_version }}
+      magento_version: ${{ matrix.version }}
+      magento_distribution: ${{ matrix.distribution }}
+      run_unit_tests: true
+      run_integration_tests: true
     strategy:
       fail-fast: false
       matrix:
-        magento_version:
-          - '2.4.8-p3'
-          - '2.4.7-p8'
-          - '2.4.6-p13'
-          - '2.4.4-p13'
+        include: ${{ fromJson(needs.supported-versions.outputs.versions) }}
