@@ -40,5 +40,26 @@
         "debugging",
         "devtools",
         "open-source"
-    ]
+    ],
+    "require-dev": {
+        "samjuk/dev-standards": "^1.0",
+        "magento/magento-coding-standard": "^41.0",
+        "phpunit/phpunit": "^9.5 || ^10.5 || ^12.5",
+        "bitexpert/phpstan-magento": "dev-master",
+        "phpstan/extension-installer": "1.4.x-dev",
+        "phpstan/phpstan": "2.3.x-dev"
+    },
+    "repositories": [{
+        "name": "mage-os",
+        "type": "composer",
+        "url": "https://mirror.mage-os.org/"
+    }],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "magento/composer-dependency-version-audit-plugin": false,
+            "magento/magento-composer-installer": false,
+            "phpstan/extension-installer": true
+        }
+    }
 }
