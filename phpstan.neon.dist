@@ -1,0 +1,11 @@
+includes:
+    - vendor/samjuk/dev-standards/php/magento/phpstan.neon
+
+parameters:
+    paths:
+        - Model
+        - Plugin
+        - Test
+        - registration.php
+    # ponytail: level 1 keeps parity with the old config; dev-standards default is 6.
+    level: 1
