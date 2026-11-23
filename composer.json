@@ -14,8 +14,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
-        "magento/framework": "^103.0",
+        "php": "^8.2",
+        "magento/framework": "^103.0.6",
         "ext-json": "*"
     },
     "autoload": {
