@@ -13,8 +13,10 @@ class OperationTarget
 {
     public const INDENT = 4;
 
-    private ?array $oldData;
-    private ?array $newData;
+    /** @var array<string, mixed> */
+    private array $oldData = [];
+    /** @var array<string, mixed> */
+    private array $newData = [];
 
     private Verbosity $verbosity;
     private OperationChangeFactory $operationChangeFactory;
@@ -27,19 +29,19 @@ class OperationTarget
         $this->operationChangeFactory = $operationChangeFactory;
     }
 
-    public function setOldData(?ElementInterface $element)
+    public function setOldData(?ElementInterface $element): OperationTarget
     {
         $this->oldData = $this->extractData($element);
         return $this;
     }
 
-    public function setNewData(?ElementInterface $element)
+    public function setNewData(?ElementInterface $element): OperationTarget
     {
         $this->newData = $this->extractData($element);
         return $this;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return sprintf(
             '%s (%s)',
@@ -52,7 +54,10 @@ class OperationTarget
         );
     }
 
-    public function getChanges()
+    /**
+     * @return OperationChange[]
+     */
+    public function getChanges(): array
     {
         $return = [];
         if ($this->oldData && $this->newData) {
@@ -78,7 +83,12 @@ class OperationTarget
     }
 
     // @TODO: Revist this, currently its late and it works...
-    private function shakeMutualData($oldData, $newData)
+    /**
+     * @param array<string, mixed> $oldData
+     * @param array<string, mixed> $newData
+     * @return array{array<string, mixed>, array<string, mixed>}
+     */
+    private function shakeMutualData(array $oldData, array $newData): array
     {
         $combinedKeys = array_unique([
             ...array_keys($oldData),
@@ -104,6 +114,9 @@ class OperationTarget
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function extractData(?ElementInterface $element): array
     {
         if ($element == null) {

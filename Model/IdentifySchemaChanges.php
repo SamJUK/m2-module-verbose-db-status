@@ -3,29 +3,29 @@
 namespace SamJUK\VerboseDBStatus\Model;
 
 use SamJUK\VerboseDBStatus\Model\OperationFactory;
-use SamJUK\VerboseDBStatus\Model\Verbosity;
 use Magento\Framework\Setup\Declaration\Schema\Diff\SchemaDiff;
+use Magento\Framework\Setup\Declaration\Schema\ElementHistory;
 use Magento\Framework\Setup\Declaration\Schema\SchemaConfigInterface;
 
 class IdentifySchemaChanges
 {
     private SchemaConfigInterface $schemaConfig;
     private SchemaDiff $schemaDiff;
-    private Verbosity $verbosity;
     private OperationFactory $operationFactory;
 
     public function __construct(
         SchemaConfigInterface $schemaConfig,
         SchemaDiff $schemaDiff,
-        Verbosity $verbosity,
         OperationFactory $operationFactory
     ) {
         $this->schemaConfig = $schemaConfig;
         $this->schemaDiff = $schemaDiff;
-        $this->verbosity = $verbosity;
         $this->operationFactory = $operationFactory;
     }
 
+    /**
+     * @return array<string, ElementHistory[]>
+     */
     public function getChanges(): array
     {
         $declarativeSchema = $this->schemaConfig->getDeclarationConfig();

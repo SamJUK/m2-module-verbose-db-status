@@ -8,7 +8,7 @@ use SamJUK\VerboseDBStatus\Model\OperationChange;
 class OperationChangeTest extends TestCase
 {
 
-    public function testToString()
+    public function testToString(): void
     {
         $changeKey = 'comment';
         $changeOld = 'my table';
