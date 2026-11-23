@@ -43,11 +43,11 @@
     ],
     "require-dev": {
         "samjuk/dev-standards": "^1.0",
-        "magento/magento-coding-standard": "^41.0",
+        "magento/magento-coding-standard": "^41",
         "phpunit/phpunit": "^9.5 || ^10.5 || ^12.5",
-        "bitexpert/phpstan-magento": "dev-master",
-        "phpstan/extension-installer": "1.4.x-dev",
-        "phpstan/phpstan": "2.3.x-dev"
+        "bitexpert/phpstan-magento": "^0.44",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1"
     },
     "repositories": [{
         "name": "mage-os",
