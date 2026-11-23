@@ -2,6 +2,7 @@
 
 namespace SamJUK\VerboseDBStatus\Test\Unit\Plugin;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SamJUK\VerboseDBStatus\Plugin\UpToDateDeclarativeSchema as UpToDateDeclarativeSchemaPlugin;
 use SamJUK\VerboseDBStatus\Model\Verbosity;
@@ -10,14 +11,15 @@ use Magento\Framework\Setup\Declaration\Schema\UpToDateDeclarativeSchema as Base
 
 class UpToDateDeclarativeSchemaTest extends TestCase
 {
-    private const FIXTURE_UP_TO_DATE_MESSAGE = "All modules are up to date.";
-
     private const FIXTURE_NOT_UP_TO_DATE_MESSAGE = "Declarative Schema is not up to date\n
     Run 'setup:upgrade' to update your DB schema and data.";
 
+    /** @var BaseUpToDateDeclarativeSchema&MockObject */
     private $baseUpToDateDeclarativeSchema;
+    /** @var Verbosity&MockObject */
     private $verbosity;
-    private $upToDateDeclarativeSchemaPlugin;
+    private UpToDateDeclarativeSchemaPlugin $upToDateDeclarativeSchemaPlugin;
+    /** @var IdentifySchemaChanges&MockObject */
     private $identifySchemaChanges;
 
     public function setUp(): void
@@ -34,7 +36,7 @@ class UpToDateDeclarativeSchemaTest extends TestCase
         );
     }
 
-    public function testPluginReturnsNonVerboseContent()
+    public function testPluginReturnsNonVerboseContent(): void
     {
         $this->verbosity->method('isVerbose')
             ->willReturn(false);
@@ -50,7 +52,7 @@ class UpToDateDeclarativeSchemaTest extends TestCase
         $this->assertEquals(trim($result), self::FIXTURE_NOT_UP_TO_DATE_MESSAGE);
     }
 
-    public function testPluginReturnsVerboseContent()
+    public function testPluginReturnsVerboseContent(): void
     {
         $this->verbosity->method('isVerbose')
             ->willReturn(true);

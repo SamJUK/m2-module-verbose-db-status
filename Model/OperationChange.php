@@ -21,6 +21,7 @@ class OperationChange
         return $this->key;
     }
 
+    /** @param mixed $data */
     public function setOldValue($data): OperationChange
     {
         $this->oldValue = var_export($data, true);
@@ -32,6 +33,7 @@ class OperationChange
         return $this->oldValue;
     }
 
+    /** @param mixed $data */
     public function setNewValue($data): OperationChange
     {
         $this->newValue = var_export($data, true);

@@ -2,6 +2,7 @@
 
 namespace SamJUK\VerboseDBStatus\Test\Unit\Model;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SamJUK\VerboseDBStatus\Model\OperationTarget;
 use SamJUK\VerboseDBStatus\Model\Verbosity;
@@ -14,7 +15,9 @@ use Magento\Framework\Setup\Declaration\Schema\Dto\Constraint;
 
 class OperationTargetTest extends TestCase
 {
+    /** @var Verbosity&MockObject */
     private $verbosity;
+    /** @var \SamJUK\VerboseDBStatus\Model\OperationChangeFactory&MockObject */
     private $operationChangeFactory;
 
     public function setUp(): void
@@ -30,7 +33,7 @@ class OperationTargetTest extends TestCase
         $this->operationChangeFactory->method('create')->willReturn(new OperationChange);
     }
 
-    public function testChangesDoesNotContainData()
+    public function testChangesDoesNotContainData(): void
     {
         $table = $this->getTableDataElement('my_table');
         $target = new OperationTarget($this->verbosity, $this->operationChangeFactory);
@@ -42,7 +45,7 @@ class OperationTargetTest extends TestCase
         }));
     }
 
-    public function testVerboseChangesDoesContainData()
+    public function testVerboseChangesDoesContainData(): void
     {
         $this->verbosity->method('isExtraVerbose')->willReturn(true);
 
@@ -56,7 +59,7 @@ class OperationTargetTest extends TestCase
         }));
     }
 
-    public function testGetTitleForTableOperation()
+    public function testGetTitleForTableOperation(): void
     {
         $table = $this->getTableDataElement('my_table');
 
@@ -77,7 +80,7 @@ class OperationTargetTest extends TestCase
         );
     }
 
-    public function testGetTitleForColumnOperation()
+    public function testGetTitleForColumnOperation(): void
     {
         $column = $this->getColumnDataElement('entity_id', 'int');
 
@@ -99,7 +102,7 @@ class OperationTargetTest extends TestCase
         );
     }
 
-    public function testGetTitleForConstraintOperation()
+    public function testGetTitleForConstraintOperation(): void
     {
         $column = $this->getConstraintDataElement('MY_TABLE_ENTITY_ID_ATTRIBUTE_ID_STORE_ID', 'unique');
 
@@ -121,7 +124,7 @@ class OperationTargetTest extends TestCase
         );
     }
 
-    public function testGetTitleForIndexOperation()
+    public function testGetTitleForIndexOperation(): void
     {
         $index = $this->getIndexDataElement('MY_TABLE_STORE_ID');
 
@@ -143,7 +146,10 @@ class OperationTargetTest extends TestCase
         );
     }
 
-    private function getTableDataElement($name)
+    /**
+     * @return Table&MockObject
+     */
+    private function getTableDataElement(string $name)
     {
         $mock = $this->createMock(Table::class);
         $mock->method('getDiffSensitiveParams')->willReturn([]);
@@ -153,7 +159,10 @@ class OperationTargetTest extends TestCase
         return $mock;
     }
 
-    private function getColumnDataElement($name, $type)
+    /**
+     * @return Column&MockObject
+     */
+    private function getColumnDataElement(string $name, string $type)
     {
         $mockTable = $this->getTableDataElement('my_table');
 
@@ -165,7 +174,10 @@ class OperationTargetTest extends TestCase
         return $mock;
     }
 
-    private function getConstraintDataElement($name, $type)
+    /**
+     * @return Constraint&MockObject
+     */
+    private function getConstraintDataElement(string $name, string $type)
     {
         $mockTable = $this->getTableDataElement('my_table');
 
@@ -177,7 +189,10 @@ class OperationTargetTest extends TestCase
         return $mock;
     }
 
-    private function getIndexDataElement($name)
+    /**
+     * @return Index&MockObject
+     */
+    private function getIndexDataElement(string $name)
     {
         $mockTable = $this->getTableDataElement('my_table');
 

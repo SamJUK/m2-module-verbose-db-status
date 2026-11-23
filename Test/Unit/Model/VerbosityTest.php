@@ -8,7 +8,7 @@ use SamJUK\VerboseDBStatus\Model\Verbosity;
 class VerbosityTest extends TestCase
 {
 
-    public function testIsVerbose()
+    public function testIsVerbose(): void
     {
         $verbosity = new Verbosity();
 
@@ -22,7 +22,7 @@ class VerbosityTest extends TestCase
         $this->assertTrue($verbosity->isVerbose());
     }
 
-    public function testIsExtraVerbose()
+    public function testIsExtraVerbose(): void
     {
         $verbosity = new Verbosity();
 

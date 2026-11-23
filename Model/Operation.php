@@ -3,13 +3,15 @@
 namespace SamJUK\VerboseDBStatus\Model;
 
 use SamJUK\VerboseDBStatus\Model\OperationTargetFactory;
+use Magento\Framework\Setup\Declaration\Schema\ElementHistory;
 
 class Operation
 {
     public const INDENT = 2;
 
-    private ?string $title;
-    private ?array $targets;
+    private string $title = '';
+    /** @var OperationTarget[] */
+    private array $targets = [];
     private OperationTargetFactory $operationTargetFactory;
 
     public function __construct(
@@ -18,18 +20,21 @@ class Operation
         $this->operationTargetFactory = $operationTargetFactory;
     }
 
-    public function setTitle($title): Operation
+    public function setTitle(string $title): Operation
     {
         $this->title = $title;
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTargets($targets): Operation
+    /**
+     * @param ElementHistory[] $targets
+     */
+    public function setTargets(array $targets): Operation
     {
         $this->targets = array_map(function ($target) {
             return $this->operationTargetFactory->create()
@@ -39,7 +44,10 @@ class Operation
         return $this;
     }
 
-    public function getTargets(): ?array
+    /**
+     * @return OperationTarget[]
+     */
+    public function getTargets(): array
     {
         return $this->targets;
     }
